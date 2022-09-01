@@ -1,4 +1,4 @@
-APIGEE_ORG=cabral-apigee
+APIGEE_ORG=YOUR_ORG_HERE
 
 gcloud auth login
 
