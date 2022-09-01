@@ -1,0 +1,65 @@
+[{
+  "name": "RiskStandardProduct",
+  "displayName": "RiskStandardProduct",
+  "approvalType": "auto",
+  "attributes": [
+    {
+      "name": "access",
+      "value": "public"
+    },
+    {
+      "name": "max-rate-per-min",
+      "value": "5pm"
+    }
+  ],
+  "environments": [
+    "dev"
+  ],
+  "operationGroup": {
+    "operationConfigs": [
+      {
+        "apiSource": "Risks-v2",
+        "operations": [
+          {
+            "resource": "/"
+          }
+        ],
+        "quota": {}
+      }
+    ],
+    "operationConfigType": "proxy"
+  }
+},
+{
+  "name": "RiskPremiumProduct",
+  "displayName": "RiskPremiumProduct",
+  "approvalType": "auto",
+  "attributes": [
+    {
+      "name": "access",
+      "value": "public"
+    },
+    {
+      "name": "max-rate-per-min",
+      "value": "20pm"
+    }
+  ],
+  "environments": [
+    "dev"
+  ],
+  "operationGroup": {
+    "operationConfigs": [
+      {
+        "apiSource": "Risks-v2",
+        "operations": [
+          {
+            "resource": "/"
+          }
+        ],
+        "quota": {}
+      }
+    ],
+    "operationConfigType": "proxy"
+  }
+}
+]
