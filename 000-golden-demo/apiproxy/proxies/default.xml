@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>VAK-KeyCheck</Name>
+            </Step>
+            <Step>
+                <Name>SA-RatePerProd</Name>
+            </Step>
+            <Step>
+                <Name>EV-GetRouteProbability</Name>
+            </Step>
+            <Step>
+                <Name>JS-LegacyOrNew</Name>
+            </Step>
+        </Request>
+        <Response>
+            <Step>
+                <Name>EV-GetBackend</Name>
+            </Step>
+            <Step>
+                <Name>AM-AdaptResponse</Name>
+            </Step>
+        </Response>
+    </PreFlow>
+    <Flows>
+        <Flow name="OPTIONS PreFlight">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>CORS-PreFlight</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>request.verb == "OPTIONS" AND request.header.origin != null AND request.header.Access-Control-Request-Method != null</Condition>
+        </Flow>
+    </Flows>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <PostClientFlow>
+        <Response/>
+    </PostClientFlow>
+    <HTTPProxyConnection>
+        <BasePath>/v2/risks</BasePath>
+    </HTTPProxyConnection>
+    <RouteRule name="route-new">
+        <Condition>(apigee.apiproduct.name = "RiskStandardProduct") and (goToNew="true")</Condition>
+        <TargetEndpoint>risk-new</TargetEndpoint>
+    </RouteRule>
+    <RouteRule name="route-legacy">
+        <TargetEndpoint>risk-legacy</TargetEndpoint>
+    </RouteRule>
+</ProxyEndpoint>

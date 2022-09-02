@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables continueOnError="false" enabled="true" name="EV-GetBackend">
+    <DisplayName>EV-GetBackend</DisplayName>
+    <Properties/>
+    <JSONPayload>
+        <Variable name="backend">
+            <JSONPath>$.source</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <Source clearPayload="false">response</Source>
+</ExtractVariables>
