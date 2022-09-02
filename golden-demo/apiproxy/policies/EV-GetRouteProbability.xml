@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ExtractVariables continueOnError="false" enabled="true" name="EV-GetRouteProbability">
-    <DisplayName>EV-GetRouteProbability</DisplayName>
-    <Source>request</Source>
-    <Variable name="propertyset.traffic.prob">
-        <Pattern>{route_prob}</Pattern>
-    </Variable>
-    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
-</ExtractVariables>
