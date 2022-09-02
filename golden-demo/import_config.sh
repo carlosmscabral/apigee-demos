@@ -1,3 +1,4 @@
+#!/bin/bash
 # First argument should be org, second env.
 # This depends on https://github.com/apigee/apigeecli to be installed
 
