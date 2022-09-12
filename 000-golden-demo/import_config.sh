@@ -5,6 +5,9 @@
 echo $1 
 echo $2
 
+APIGEE_ORG=$1
+APIGEE_ENV=$2
+
 if [ -z "$1" ]
   then
     echo "org name is a mandatory parameter. Usage: 'import_config.sh {org} {env}'"
