@@ -1,30 +1,30 @@
-<APIProxy revision="4" name="Risks-v2">
+<APIProxy revision="3" name="Risks-v2">
     <DisplayName></DisplayName>
     <Description></Description>
-    <CreatedAt>1662037509895</CreatedAt>
-    <LastModifiedAt>1662037509895</LastModifiedAt>
+    <CreatedAt>1663010083649</CreatedAt>
+    <LastModifiedAt>1663010083649</LastModifiedAt>
     <BasePaths>/v2/risks</BasePaths>
     <Policies>
-        <Policy>VAK-KeyCheck</Policy>
+        <Policy>AM-AdaptResponse</Policy>
+        <Policy>AM-DisablePathCopy</Policy>
+        <Policy>CORS-PreFlight</Policy>
         <Policy>CORS-RiskLegacy</Policy>
         <Policy>CORS-RiskNew</Policy>
-        <Policy>CORS-PreFlight</Policy>
+        <Policy>EV-GetBackend</Policy>
         <Policy>EV-GetRouteProbability</Policy>
         <Policy>JS-LegacyOrNew</Policy>
-        <Policy>AM-DisablePathCopy</Policy>
-        <Policy>AM-AdaptResponse</Policy>
-        <Policy>EV-GetBackend</Policy>
         <Policy>SA-RatePerProd</Policy>
+        <Policy>VAK-KeyCheck</Policy>
     </Policies>
     <ProxyEndpoints>
         <ProxyEndpoint>default</ProxyEndpoint>
     </ProxyEndpoints>
     <Resources>
-        <Resource>properties://traffic.properties</Resource>
         <Resource>jsc://legacy-or-new.js</Resource>
+        <Resource>properties://traffic.properties</Resource>
     </Resources>
     <TargetEndpoints>
-        <TargetEndpoint>risk-new</TargetEndpoint>
         <TargetEndpoint>risk-legacy</TargetEndpoint>
+        <TargetEndpoint>risk-new</TargetEndpoint>
     </TargetEndpoints>
 </APIProxy>

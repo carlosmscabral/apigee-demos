@@ -1,28 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ProxyEndpoint name="default">
     <PreFlow name="PreFlow">
-        <Request>
-            <Step>
-                <Name>VAK-KeyCheck</Name>
-            </Step>
-            <Step>
-                <Name>SA-RatePerProd</Name>
-            </Step>
-            <Step>
-                <Name>EV-GetRouteProbability</Name>
-            </Step>
-            <Step>
-                <Name>JS-LegacyOrNew</Name>
-            </Step>
-        </Request>
-        <Response>
-            <Step>
-                <Name>EV-GetBackend</Name>
-            </Step>
-            <Step>
-                <Name>AM-AdaptResponse</Name>
-            </Step>
-        </Response>
     </PreFlow>
     <Flows>
         <Flow name="OPTIONS PreFlight">
@@ -34,6 +12,32 @@
             </Request>
             <Response/>
             <Condition>request.verb == "OPTIONS" AND request.header.origin != null AND request.header.Access-Control-Request-Method != null</Condition>
+        </Flow>
+        <Flow name="POST /score">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>VAK-KeyCheck</Name>
+                </Step>
+                <Step>
+                    <Name>SA-RatePerProd</Name>
+                </Step>
+                <Step>
+                    <Name>EV-GetRouteProbability</Name>
+                </Step>
+                <Step>
+                    <Name>JS-LegacyOrNew</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>EV-GetBackend</Name>
+                </Step>
+                <Step>
+                    <Name>AM-AdaptResponse</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/score") and (request.verb = "POST")</Condition>
         </Flow>
     </Flows>
     <PostFlow name="PostFlow">

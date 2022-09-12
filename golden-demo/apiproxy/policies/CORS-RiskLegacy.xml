@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <CORS continueOnError="false" enabled="true" name="CORS-RiskLegacy">
-    <DisplayName>CORS-RiskLegacy</DisplayName>
-    <AllowOrigins>*</AllowOrigins>
-    <AllowMethods>GET, PUT, POST, DELETE</AllowMethods>
-    <AllowHeaders>origin, x-requested-with, accept, content-type, authorization, x-apikey</AllowHeaders>
-    <ExposeHeaders>*</ExposeHeaders>
-    <MaxAge>3628800</MaxAge>
-    <AllowCredentials>false</AllowCredentials>
-    <GeneratePreflightResponse>false</GeneratePreflightResponse>
-    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <DisplayName>CORS-RiskLegacy</DisplayName>
+  <AllowOrigins>*</AllowOrigins>
+  <AllowMethods>GET, PUT, POST, DELETE</AllowMethods>
+  <AllowHeaders>origin, x-requested-with, accept, content-type, authorization, x-apikey</AllowHeaders>
+  <ExposeHeaders>*</ExposeHeaders>
+  <MaxAge>3628800</MaxAge>
+  <AllowCredentials>false</AllowCredentials>
+  <GeneratePreflightResponse>false</GeneratePreflightResponse>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
 </CORS>
