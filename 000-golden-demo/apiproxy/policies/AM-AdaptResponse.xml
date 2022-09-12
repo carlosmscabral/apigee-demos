@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-AdaptResponse">
+  <DisplayName>AM-AdaptResponse</DisplayName>
+  <Properties/>
+  <Add>
+    <Headers>
+      <Header name="backend-type">{backend}</Header>
+    </Headers>
+  </Add>
+  <AssignTo createNew="false" transport="http" type="response"/>
+</AssignMessage>

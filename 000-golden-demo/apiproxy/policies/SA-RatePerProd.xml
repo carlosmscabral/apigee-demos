@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SpikeArrest continueOnError="false" enabled="true" name="SA-RatePerProd">
+  <DisplayName>SA-RatePerProd</DisplayName>
+  <Properties/>
+  <Identifier ref="verifyapikey.VAK-KeyCheck.client_id"/>
+  <Rate ref="verifyapikey.VAK-KeyCheck.apiproduct.max-rate-per-min"/>
+  <UseEffectiveCount>true</UseEffectiveCount>
+</SpikeArrest>
