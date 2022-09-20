@@ -26,7 +26,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://{{public_dev_host}}/v2/risks",
+					"raw": "https://{{public_dev_host}}/v2/risks/score",
 					"protocol": "https",
 					"host": [
 						"{{public_dev_host}}"
@@ -60,7 +60,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://{{public_dev_host}}/v2/risks",
+					"raw": "https://{{public_dev_host}}/v2/risks/score",
 					"protocol": "https",
 					"host": [
 						"{{public_dev_host}}"

@@ -48,7 +48,8 @@ if [ $RESULT -ne 0 ]; then
 fi
 
 
-apigeecli products import -o $APIGEE_ORG  -t $(gcloud auth print-access-token) -f products.json
+apigeecli products create -o $APIGEE_ORG  -t $(gcloud auth print-access-token) --approval auto -n RiskStandardProduct --attrs=max-rate-per-min=5pm -e $APIGEE_ENV --opgrp products.json --displayname RiskStandardProduct
+apigeecli products create -o $APIGEE_ORG  -t $(gcloud auth print-access-token) --approval auto -n RiskPremiumProduct --attrs=max-rate-per-min=20pm -e $APIGEE_ENV --opgrp products.json --displayname RiskPremiumProduct
 apigeecli developers import -o $APIGEE_ORG -t $(gcloud auth print-access-token) -f developers.json
 apigeecli apps create -o $APIGEE_ORG  -t $(gcloud auth print-access-token) -n AppCorretorManuelPadaria -e manueldapadaria@google.com -p RiskStandardProduct
 apigeecli apps keys create -o $APIGEE_ORG  -t $(gcloud auth print-access-token) -n AppCorretorManuelPadaria -d manueldapadaria@google.com -p RiskStandardProduct -k appcorretormanuelpadariakey -r supersecretmanuel
