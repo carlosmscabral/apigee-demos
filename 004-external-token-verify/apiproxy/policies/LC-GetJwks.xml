@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LookupCache continueOnError="false" enabled="true" name="LC-GetJwks">
+  <DisplayName>LC-GetJwks</DisplayName>
+  <Properties/>
+  <CacheKey>
+    <Prefix>IDP_JWKS_CACHE</Prefix>
+    <KeyFragment>{jwt.DJ-DecodeToken.claim.issuer}</KeyFragment>
+  </CacheKey>
+  <CacheResource>IDP_JWKS_CACHE</CacheResource>
+  <Scope>Exclusive</Scope>
+  <AssignTo>jwks</AssignTo>
+</LookupCache>

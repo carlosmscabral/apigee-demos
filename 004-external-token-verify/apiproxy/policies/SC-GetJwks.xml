@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout continueOnError="false" enabled="true" name="SC-GetJwks">
+  <DisplayName>SC-GetJwks</DisplayName>
+  <Properties/>
+  <Request clearPayload="true">
+    <Set>
+      <Verb>GET</Verb>
+    </Set>
+    <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+  </Request>
+  <Response>jwks</Response>
+  <HTTPTargetConnection>
+    <Properties/>
+    <URL>https://dev-9253729.okta.com/oauth2/default/v1/keys</URL>
+  </HTTPTargetConnection>
+</ServiceCallout>

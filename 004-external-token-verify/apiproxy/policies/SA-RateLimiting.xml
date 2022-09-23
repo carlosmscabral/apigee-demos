@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SpikeArrest continueOnError="false" enabled="true" name="SA-RateLimiting">
+  <DisplayName>SA-RateLimiting</DisplayName>
+  <Properties/>
+  <Rate>2pm</Rate>
+</SpikeArrest>

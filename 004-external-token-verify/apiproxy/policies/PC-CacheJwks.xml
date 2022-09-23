@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PopulateCache continueOnError="false" enabled="true" name="PC-CacheJwks">
+  <DisplayName>PC-CacheJwks</DisplayName>
+  <Properties/>
+  <CacheKey>
+    <Prefix>IDP_JWKS_CACHE</Prefix>
+    <KeyFragment>{jwt.DJ-DecodeToken.claim.issuer}</KeyFragment>
+  </CacheKey>
+  <CacheResource>IDP_JWKS_CACHE</CacheResource>
+  <Scope>Exclusive</Scope>
+  <ExpirySettings>
+    <TimeoutInSec>15</TimeoutInSec>
+  </ExpirySettings>
+  <Source>jwks</Source>
+</PopulateCache>

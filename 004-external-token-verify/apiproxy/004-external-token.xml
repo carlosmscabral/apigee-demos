@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="37" name="004-external-token">
+  <DisplayName/>
+  <Description/>
+  <CreatedAt>1663334280524</CreatedAt>
+  <LastModifiedAt>1663334280524</LastModifiedAt>
+  <BasePaths>/v1/external-token</BasePaths>
+  <Policies>
+    <Policy>SC-OktaToken</Policy>
+    <Policy>AM-Debug</Policy>
+    <Policy>SA-RateLimiting</Policy>
+    <Policy>EV-GetBearerToken</Policy>
+    <Policy>DJ-DecodeToken</Policy>
+    <Policy>LC-GetJwks</Policy>
+    <Policy>SC-GetJwks</Policy>
+    <Policy>PC-CacheJwks</Policy>
+    <Policy>VJ-VerifyJwt</Policy>
+  </Policies>
+  <ProxyEndpoints>
+    <ProxyEndpoint>default</ProxyEndpoint>
+  </ProxyEndpoints>
+  <Resources>
+    <Resource>properties://info.properties</Resource>
+  </Resources>
+</APIProxy>

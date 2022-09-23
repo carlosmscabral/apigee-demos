@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+  <PreFlow name="PreFlow">
+    <Request/>
+    <Response/>
+  </PreFlow>
+  <Flows>
+    <Flow name="POST /token">
+      <Condition>(proxy.pathsuffix MatchesPath "/token") and (request.verb = "POST")</Condition>
+      <Description>External token</Description>
+      <Request>
+        <Step>
+          <Name>SA-RateLimiting</Name>
+        </Step>
+      </Request>
+      <Response/>
+    </Flow>
+    <Flow name="GET /get (protected resource)">
+      <Condition>(proxy.pathsuffix MatchesPath "/get") and (request.verb = "GET")</Condition>
+      <Description/>
+      <Request>
+        <Step>
+          <Name>EV-GetBearerToken</Name>
+        </Step>
+        <Step>
+          <Name>DJ-DecodeToken</Name>
+        </Step>
+        <Step>
+          <Name>LC-GetJwks</Name>
+        </Step>
+        <Step>
+          <Condition>(lookupcache.LC-GetJwks.cachehit == false)</Condition>
+          <Name>SC-GetJwks</Name>
+        </Step>
+        <Step>
+          <Condition>(lookupcache.LC-GetJwks.cachehit == false)</Condition>
+          <Name>PC-CacheJwks</Name>
+        </Step>
+        <Step>
+          <Name>VJ-VerifyJwt</Name>
+        </Step>
+      </Request>
+      <Response/>
+    </Flow>
+  </Flows>
+  <PostFlow name="PostFlow">
+    <Request/>
+    <Response/>
+  </PostFlow>
+  <HTTPProxyConnection>
+    <BasePath>/v1/external-token</BasePath>
+  </HTTPProxyConnection>
+  <RouteRule name="OktaToken">
+    <Condition>(proxy.pathsuffix MatchesPath "/token") and (request.verb = "POST")</Condition>
+    <URL>https://dev-9253729.okta.com/oauth2/default/v1</URL>
+  </RouteRule>
+  <RouteRule name="GET /get (protected resource)">
+    <Condition>(proxy.pathsuffix MatchesPath "/get") and (request.verb = "GET")</Condition>
+    <URL>https://httpbin.org</URL>
+  </RouteRule>
+  <RouteRule name="noRoute"/>
+</ProxyEndpoint>

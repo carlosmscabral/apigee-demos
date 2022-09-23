@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables continueOnError="false" enabled="true" name="EV-GetBearerToken">
+  <DisplayName>EV-GetBearerToken</DisplayName>
+  <Header name="Authorization">
+    <Pattern ignoreCase="false">Bearer {jwt_token}</Pattern>
+  </Header>
+  <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+  <Source clearPayload="false">request</Source>
+</ExtractVariables>

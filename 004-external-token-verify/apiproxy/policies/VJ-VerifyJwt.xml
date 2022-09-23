@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<VerifyJWT continueOnError="false" enabled="true" name="VJ-VerifyJwt">
+  <DisplayName>VJ-VerifyJwt</DisplayName>
+  <Algorithm>RS256</Algorithm>
+  <Source>jwt_token</Source>
+  <PublicKey>
+    <JWKS ref="jwks.content"/>
+  </PublicKey>
+  <Issuer ref="propertyset.info.issuer"/>
+</VerifyJWT>
