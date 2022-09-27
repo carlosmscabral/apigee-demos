@@ -15,7 +15,8 @@ Just import the proxy with *apigeecli* or any other method you prefer.
 ## How to demo
 - Show how we can protect the external token endpoint with Apigee policies such as RateLimiting, even if this mostly a transparent flow
 - Show how we can decode and get all sorts of information from the signed token and populate variables even before actually validating the token
-- Show how we can locally cache the JWKS from the remote authorization server to speed up token validation
+- Show how we can locally cache the JWKS from the remote authorization server to speed up token validation (the PC has a low expiry time of 15 seconds so we can demo that)
+- Use an invalid/expired token to show Apigee blocking it
 - Change the PropertySet (which we use to basically validate the issuer claim) to something else to show that Apigee will thrown an error and will not forward the request to the backend
 
 ### Shown features
