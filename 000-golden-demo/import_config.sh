@@ -2,9 +2,6 @@
 # First argument should be org, second env.
 # This depends on https://github.com/apigee/apigeecli to be installed
 
-echo $1 
-echo $2
-
 APIGEE_ORG=$1
 APIGEE_ENV=$2
 
@@ -29,10 +26,10 @@ if [ $RESULT -ne 0 ]; then
   exit 1
 fi
 
-apigeecli apis get -o $APIGEE_ORG -n Risks-v2 -t $(gcloud auth print-access-token)
+apigeecli apis get -o $APIGEE_ORG -n Risks-v2 -t $(gcloud auth print-access-token) >/dev/null 2>&1 
 RESULT=$?
 if [ $RESULT -ne 0 ]; then
-    apigeecli apis create bundle -o $APIGEE_ORG  -t $(gcloud auth print-access-token) -p apiproxy -n Risks-v2
+    apigeecli apis create bundle -o $APIGEE_ORG  -t $(gcloud auth print-access-token) -f apiproxy -n Risks-v2
     RESULT=$?
     if [ $RESULT -ne 0 ]; then
         echo "failed to import proxy"
