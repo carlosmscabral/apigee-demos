@@ -1,0 +1,14 @@
+{ 
+  "operationConfigs": [
+      {
+        "apiSource": "risks-basic-demo",
+        "operations": [
+          {
+            "resource": "/"
+          }
+        ],
+        "quota": {}
+      }
+    ],
+  "operationConfigType": "proxy"
+}

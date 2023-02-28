@@ -1,0 +1,25 @@
+<APIProxy revision="6" name="risks-basic-demo">
+    <DisplayName></DisplayName>
+    <Description></Description>
+    <CreatedAt>1677592779624</CreatedAt>
+    <LastModifiedAt>1677592789175</LastModifiedAt>
+    <BasePaths>/v1/risks-basic-demo</BasePaths>
+    <Policies>
+        <Policy>CORS-PreFlight</Policy>
+        <Policy>EV-GetRouteProbability</Policy>
+        <Policy>JS-LegacyOrNew</Policy>
+        <Policy>SA-RatePerProd</Policy>
+        <Policy>VAK-KeyCheck</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources>
+        <Resource>jsc://legacy-or-new.js</Resource>
+        <Resource>properties://traffic.properties</Resource>
+    </Resources>
+    <TargetEndpoints>
+        <TargetEndpoint>risk-legacy</TargetEndpoint>
+        <TargetEndpoint>risk-new</TargetEndpoint>
+    </TargetEndpoints>
+</APIProxy>

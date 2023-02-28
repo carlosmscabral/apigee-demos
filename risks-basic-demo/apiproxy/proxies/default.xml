@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <PreFlow name="PreFlow"/>
+    <Flows>
+        <Flow name="POST /score">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>CORS-PreFlight</Name>
+                </Step>
+                <Step>
+                    <Name>VAK-KeyCheck</Name>
+                </Step>
+                <Step>
+                    <Name>SA-RatePerProd</Name>
+                </Step>
+                <Step>
+                    <Name>EV-GetRouteProbability</Name>
+                </Step>
+                <Step>
+                    <Name>JS-LegacyOrNew</Name>
+                </Step>
+            </Request>
+            <Response>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/score") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="GET /status">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/status") and (request.verb = "GET")</Condition>
+        </Flow>
+    </Flows>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <PostClientFlow>
+        <Response/>
+    </PostClientFlow>
+    <HTTPProxyConnection>
+        <BasePath>/v2/risks</BasePath>
+    </HTTPProxyConnection>
+    <RouteRule name="route-new">
+        <Condition>(apigee.apiproduct.name = "RiskStandardProduct") and (goToNew="true")</Condition>
+        <TargetEndpoint>risk-new</TargetEndpoint>
+    </RouteRule>
+    <RouteRule name="route-legacy">
+        <TargetEndpoint>risk-legacy</TargetEndpoint>
+    </RouteRule>
+</ProxyEndpoint>

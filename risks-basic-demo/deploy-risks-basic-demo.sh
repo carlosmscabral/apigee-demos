@@ -45,13 +45,21 @@ if [ -z "$NEW_BACKEND_NAME" ]; then
 fi
 
 TOKEN=$(gcloud auth print-access-token)
+HOME=$(pwd)
 
 echo "Deploying backends..."
 export BACKEND_NAME=$LEGACY_BACKEND_NAME
-source ./backends/risk-legacy/deploy.sh
+cd $HOME/backends/risk-legacy
+source ./deploy.sh
+export LEGACY_URL=$(gcloud run services describe $BACKEND_NAME --platform managed --region $REGION --format 'value(status.url)')
+
 
 export BACKEND_NAME=$NEW_BACKEND_NAME
-source ./backends/risk-new/deploy.sh
+cd $HOME/backends/risk-new
+source ./deploy.sh
+export NEW_URL=$(gcloud run services describe $BACKEND_NAME --platform managed --region $REGION --format 'value(status.url)')
+
+cd $HOME
 
 
 echo "Installing apigeecli"
@@ -60,45 +68,24 @@ export PATH=$PATH:$HOME/.apigeecli/bin
 
 echo "Deploying Apigee artifacts..."
 
-echo "Importing and Deploying Apigee basic-quota proxy..."
-REV=$(apigeecli apis create bundle -f apiproxy  -n basic-quota --org "$PROJECT" --token "$TOKEN" --disable-check | jq ."revision" -r)
-apigeecli apis deploy --wait --name basic-quota --ovr --rev "$REV" --org "$PROJECT" --env "$APIGEE_ENV" --token "$TOKEN"
+echo "Importing and Deploying Apigee risks-basic-demo proxy..."
+REV=$(apigeecli apis create bundle -f apiproxy  -n risks-basic-demo --org "$PROJECT" --token "$TOKEN" --disable-check | jq ."revision" -r)
+apigeecli apis deploy --wait --name risks-basic-demo --ovr --rev "$REV" --org "$PROJECT" --env "$APIGEE_ENV" --token "$TOKEN"
 
 echo "Creating API Products"
-apigeecli products create --name basic-quota-trial --displayname "basic-quota-trial" --opgrp ./basic-quota-product-ops.json --envs "$APIGEE_ENV" --approval auto --quota 10 --interval 1 --unit minute --org "$PROJECT" --token "$TOKEN"
-apigeecli products create --name basic-quota-premium --displayname "basic-quota-premium" --opgrp ./basic-quota-product-ops.json --envs "$APIGEE_ENV" --approval auto --quota 1000 --interval 1 --unit hour --org "$PROJECT" --token "$TOKEN"
+apigeecli products create -o $PROJECT  -t $(gcloud auth print-access-token) --approval auto -n RiskStandardProduct --attrs=max-rate-per-min=5pm -e $APIGEE_ENV --opgrp products.json --displayname RiskStandardProduct
+apigeecli products create -o $PROJECT  -t $(gcloud auth print-access-token) --approval auto -n RiskPremiumProduct --attrs=max-rate-per-min=20pm -e $APIGEE_ENV --opgrp products.json --displayname RiskPremiumProduct
 
-echo "Creating Developer"
-apigeecli developers create --user testuser --email basic-quota_apigeesamples@acme.com --first Test --last User --org "$PROJECT" --token "$TOKEN"
+echo "Creating Developers"
+apigeecli developers create --user standarddev --email standarddev@acme.com --first Standard --last Dev --org "$PROJECT" --token "$TOKEN"
+apigeecli developers create --user premiumdev --email premiumdev@acme.com --first Premium --last Dev --org "$PROJECT" --token "$TOKEN"
 
 echo "Creating Developer Apps"
-apigeecli apps create --name basic-quota-trial-app --email basic-quota_apigeesamples@acme.com --prods basic-quota-trial --org "$PROJECT" --token "$TOKEN" --disable-check
-apigeecli apps create --name basic-quota-premium-app --email basic-quota_apigeesamples@acme.com --prods basic-quota-premium --org "$PROJECT" --token "$TOKEN" --disable-check
+apigeecli apps create --name standard-app --email standarddev@acme.com --prods RiskStandardProduct --org "$PROJECT" --token "$TOKEN" --disable-check
+apigeecli apps create --name premium-app --email premiumdev@acme.com --prods RiskPremiumProduct --org "$PROJECT" --token "$TOKEN" --disable-check
 
-CLIENT_ID_1=$(apigeecli apps get --name basic-quota-trial-app --org "$PROJECT" --token "$TOKEN" --disable-check | jq ."[0].credentials[0].consumerKey" -r)
-export CLIENT_ID_1
+STANDARD_CLIENT_ID=$(apigeecli apps get --name standard-app --org "$PROJECT" --token "$TOKEN" --disable-check | jq ."[0].credentials[0].consumerKey" -r)
+export STANDARD_CLIENT_ID
 
-CLIENT_ID_2=$(apigeecli apps get --name basic-quota-premium-app --org "$PROJECT" --token "$TOKEN" --disable-check | jq ."[0].credentials[0].consumerKey" -r)
-export CLIENT_ID_2
-
-# var is expected by integration test (apickli)
-export PROXY_URL="$APIGEE_HOST/v1/samples/basic-quota"
-
-# integration tests
-
-npm run test
-
-echo " "
-echo "All the Apigee artifacts are successfully deployed!"
-echo " "
-echo "Your Proxy URL is: https://$PROXY_URL"
-echo "Trial app key is: $CLIENT_ID_1"
-echo "Premium app key is: $CLIENT_ID_2"
-echo " "
-echo "-----------------------------"
-echo " "
-echo "To call the API, copy the value of one of the keys"
-echo "above and substitute it in the following request:"
-echo " "
-echo "curl -v GET https://$PROXY_URL?apikey=KEY"
-echo " "
+PREMIUM_CLIENT_ID=$(apigeecli apps get --name premium-app --org "$PROJECT" --token "$TOKEN" --disable-check | jq ."[0].credentials[0].consumerKey" -r)
+export PREMIUM_CLIENT_ID
