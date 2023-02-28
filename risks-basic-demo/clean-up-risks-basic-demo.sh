@@ -37,16 +37,6 @@ if [ -z "$REGION" ]; then
     exit
 fi
 
-if [ -z "$LEGACY_BACKEND_NAME" ]; then
-    echo "No LEGACY_BACKEND_NAME variable set"
-    exit
-fi
-
-if [ -z "$NEW_BACKEND_NAME" ]; then
-    echo "No NEW_BACKEND_NAME variable set"
-    exit
-fi
-
 TOKEN=$(gcloud auth print-access-token)
 
 echo "Installing apigeecli"
@@ -60,7 +50,7 @@ apigeecli apps delete --id "$DEVELOPER_ID" --name standard-app --org "$PROJECT" 
 DEVELOPER_ID=$(apigeecli developers get --email premiumdev@acme.com --org "$PROJECT" --token "$TOKEN" --disable-check | jq .'developerId' -r)
 apigeecli apps delete --id "$DEVELOPER_ID" --name premium-app --org "$PROJECT" --token "$TOKEN"
 
-echo "Deleting Developer"
+echo "Deleting Developers"
 apigeecli developers delete --email standarddev@acme.com --org "$PROJECT" --token "$TOKEN"
 apigeecli developers delete --email premiumdev@acme.com --org "$PROJECT" --token "$TOKEN"
 

@@ -34,16 +34,6 @@ if [ -z "$REGION" ]; then
     exit
 fi
 
-if [ -z "$LEGACY_BACKEND_NAME" ]; then
-    echo "No LEGACY_BACKEND_NAME variable set"
-    exit
-fi
-
-if [ -z "$NEW_BACKEND_NAME" ]; then
-    echo "No NEW_BACKEND_NAME variable set"
-    exit
-fi
-
 TOKEN=$(gcloud auth print-access-token)
 HOME=$(pwd)
 
