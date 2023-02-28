@@ -68,6 +68,16 @@ export PATH=$PATH:$HOME/.apigeecli/bin
 
 echo "Deploying Apigee artifacts..."
 
+if [[ "$OSTYPE" =~ ^linux ]]; then
+    sed -i -e "s+{{RISK_LEGACY_URL}}+$LEGACY_URL+g" apiproxy/targets/risk-legacy.xml
+    sed -i -e "s+{{RISK_NEW_URL}}+$NEW_URL+g" apiproxy/targets/risk-new.xml
+fi
+
+if [[ "$OSTYPE" =~ ^darwin ]]; then
+    gsed -i -e "s+{{RISK_LEGACY_URL}}+$LEGACY_URL+g" apiproxy/targets/risk-legacy.xml
+    gsed -i -e "s+{{RISK_NEW_URL}}+$NEW_URL+g" apiproxy/targets/risk-new.xml
+fi
+
 echo "Importing and Deploying Apigee risks-basic-demo proxy..."
 REV=$(apigeecli apis create bundle -f apiproxy  -n risks-basic-demo --org "$PROJECT" --token "$TOKEN" --disable-check | jq ."revision" -r)
 apigeecli apis deploy --wait --name risks-basic-demo --ovr --rev "$REV" --org "$PROJECT" --env "$APIGEE_ENV" --token "$TOKEN"
@@ -89,3 +99,18 @@ export STANDARD_CLIENT_ID
 
 PREMIUM_CLIENT_ID=$(apigeecli apps get --name premium-app --org "$PROJECT" --token "$TOKEN" --disable-check | jq ."[0].credentials[0].consumerKey" -r)
 export PREMIUM_CLIENT_ID
+
+echo "Customizing POSTMAN collection"
+
+if [[ "$OSTYPE" =~ ^linux ]]; then
+    sed -i -e "s+{{premium_client_id}}+$PREMIUM_CLIEND_ID+g" risks-basic-demo.postman_collection.json
+    sed -i -e "s+{{hostalias}}+$APIGEE_HOST+g" risks-basic-demo.postman_collection.json
+    sed -i -e "s+{{standard_client_id}}+$STANDARD_CLIEND_ID+g" risks-basic-demo.postman_collection.json
+    
+fi
+
+if [[ "$OSTYPE" =~ ^darwin ]]; then
+    gsed -i -e "s+{{premium_client_id}}+$PREMIUM_CLIEND_ID+g" risks-basic-demo.postman_collection.json
+    gsed -i -e "s+{{hostalias}}+$APIGEE_HOST+g" risks-basic-demo.postman_collection.json
+    gsed -i -e "s+{{standard_client_id}}+$STANDARD_CLIEND_ID+g" risks-basic-demo.postman_collection.json
+fi

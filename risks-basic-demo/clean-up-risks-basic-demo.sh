@@ -32,6 +32,21 @@ if [ -z "$APIGEE_HOST" ]; then
     exit
 fi
 
+if [ -z "$REGION" ]; then
+    echo "No REGION variable set"
+    exit
+fi
+
+if [ -z "$LEGACY_BACKEND_NAME" ]; then
+    echo "No LEGACY_BACKEND_NAME variable set"
+    exit
+fi
+
+if [ -z "$NEW_BACKEND_NAME" ]; then
+    echo "No NEW_BACKEND_NAME variable set"
+    exit
+fi
+
 TOKEN=$(gcloud auth print-access-token)
 
 echo "Installing apigeecli"
@@ -39,20 +54,30 @@ curl -s https://raw.githubusercontent.com/apigee/apigeecli/master/downloadLatest
 export PATH=$PATH:$HOME/.apigeecli/bin
 
 echo "Deleting Developer Apps"
-DEVELOPER_ID=$(apigeecli developers get --email basic-quota_apigeesamples@acme.com --org "$PROJECT" --token "$TOKEN" --disable-check | jq .'developerId' -r)
-apigeecli apps delete --id "$DEVELOPER_ID" --name basic-quota-trial-app --org "$PROJECT" --token "$TOKEN"
-apigeecli apps delete --id "$DEVELOPER_ID" --name basic-quota-premium-app --org "$PROJECT" --token "$TOKEN"
+DEVELOPER_ID=$(apigeecli developers get --email standarddev@acme.com --org "$PROJECT" --token "$TOKEN" --disable-check | jq .'developerId' -r)
+apigeecli apps delete --id "$DEVELOPER_ID" --name standard-app --org "$PROJECT" --token "$TOKEN"
+
+DEVELOPER_ID=$(apigeecli developers get --email premiumdev@acme.com --org "$PROJECT" --token "$TOKEN" --disable-check | jq .'developerId' -r)
+apigeecli apps delete --id "$DEVELOPER_ID" --name premium-app --org "$PROJECT" --token "$TOKEN"
 
 echo "Deleting Developer"
-apigeecli developers delete --email basic-quota_apigeesamples@acme.com --org "$PROJECT" --token "$TOKEN"
+apigeecli developers delete --email standarddev@acme.com --org "$PROJECT" --token "$TOKEN"
+apigeecli developers delete --email premiumdev@acme.com --org "$PROJECT" --token "$TOKEN"
 
 echo "Deleting API Products"
-apigeecli products delete --name basic-quota-trial --org "$PROJECT" --token "$TOKEN"
-apigeecli products delete --name basic-quota-premium --org "$PROJECT" --token "$TOKEN"
+apigeecli products delete --name RiskStandardProduct --org "$PROJECT" --token "$TOKEN"
+apigeecli products delete --name RiskPremiumProduct --org "$PROJECT" --token "$TOKEN"
 
-echo "Undeploying basic-quota"
-REV=$(apigeecli envs deployments get --env "$APIGEE_ENV" --org "$PROJECT" --token "$TOKEN" --disable-check | jq .'deployments[]| select(.apiProxy=="basic-quota").revision' -r)
-apigeecli apis undeploy --name basic-quota --env "$APIGEE_ENV" --rev "$REV" --org "$PROJECT" --token "$TOKEN"
+echo "Undeploying risks-basic-demo"
+REV=$(apigeecli envs deployments get --env "$APIGEE_ENV" --org "$PROJECT" --token "$TOKEN" --disable-check | jq .'deployments[]| select(.apiProxy=="risks-basic-demo").revision' -r)
+apigeecli apis undeploy --name risks-basic-demo --env "$APIGEE_ENV" --rev "$REV" --org "$PROJECT" --token "$TOKEN"
 
-echo "Deleting proxy basic-quota"
-apigeecli apis delete --name basic-quota --org "$PROJECT" --token "$TOKEN"
+echo "Deleting proxy risks-basic-demo"
+apigeecli apis delete --name risks-basic-demo --org "$PROJECT" --token "$TOKEN"
+
+echo "Deleting backend Cloud Run services..."
+gcloud config set run/region $REGION
+for i in $LEGACY_BACKEND_NAME $NEW_BACKEND_NAME
+do
+    gcloud run services delete $i --platform=managed
+done

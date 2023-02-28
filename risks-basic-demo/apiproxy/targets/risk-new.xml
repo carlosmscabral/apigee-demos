@@ -11,6 +11,6 @@
         <Response/>
     </PostFlow>
     <HTTPTargetConnection>
-        <URL>{{RISK_LEGACY_URL}}</URL>
+        <URL>{{RISK_NEW_URL}}</URL>
     </HTTPTargetConnection>
 </TargetEndpoint>

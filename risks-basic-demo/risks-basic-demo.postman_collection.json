@@ -46,7 +46,7 @@
 				"header": [
 					{
 						"key": "x-apikey",
-						"value": "{{basic_client_id}}",
+						"value": "{{standard_client_id}}",
 						"type": "default"
 					}
 				],
