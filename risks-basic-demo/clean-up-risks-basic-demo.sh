@@ -77,7 +77,7 @@ apigeecli apis delete --name risks-basic-demo --org "$PROJECT" --token "$TOKEN"
 
 echo "Deleting backend Cloud Run services..."
 gcloud config set run/region $REGION
-for i in $LEGACY_BACKEND_NAME $NEW_BACKEND_NAME
+for i in apigee-legacy-risk-backend apigee-legacy-new-backend
 do
     gcloud run services delete $i --platform=managed
 done
