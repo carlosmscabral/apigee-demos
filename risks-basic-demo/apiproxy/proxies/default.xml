@@ -40,7 +40,7 @@
         <Response/>
     </PostClientFlow>
     <HTTPProxyConnection>
-        <BasePath>/v2/risks</BasePath>
+        <BasePath>/v1/risks-basic-demo</BasePath>
     </HTTPProxyConnection>
     <RouteRule name="route-new">
         <Condition>(apigee.apiproduct.name = "RiskStandardProduct") and (goToNew="true")</Condition>
