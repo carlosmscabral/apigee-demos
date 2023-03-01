@@ -33,7 +33,8 @@
 					],
 					"path": [
 						"v1",
-						"risks-basic-demo"
+						"risks-basic-demo",
+						"score"
 					]
 				}
 			},
@@ -67,7 +68,8 @@
 					],
 					"path": [
 						"v1",
-						"risks-basic-demo"
+						"risks-basic-demo",
+						"score"
 					]
 				}
 			},
