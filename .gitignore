@@ -107,3 +107,11 @@ dist
 
 # Local stuff
 .local
+
+# Local .terraform directories
+**/.terraform/*
+.terraform.lock*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
