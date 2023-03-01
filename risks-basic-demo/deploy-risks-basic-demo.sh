@@ -100,7 +100,7 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
 fi
 
 if [[ "$OSTYPE" =~ ^darwin ]]; then
-    gsed -i -e "s+{{premium_client_id}}+$PREMIUM_CLIENT_I+g" risks-basic-demo.postman_collection.json
+    gsed -i -e "s+{{premium_client_id}}+$PREMIUM_CLIENT_ID+g" risks-basic-demo.postman_collection.json
     gsed -i -e "s+{{hostalias}}+$APIGEE_HOST+g" risks-basic-demo.postman_collection.json
     gsed -i -e "s+{{standard_client_id}}+$STANDARD_CLIENT_ID+g" risks-basic-demo.postman_collection.json
 fi
