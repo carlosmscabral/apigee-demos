@@ -35,21 +35,21 @@ if [ -z "$REGION" ]; then
 fi
 
 TOKEN=$(gcloud auth print-access-token)
-HOME=$(pwd)
+CUR_DIR=$(pwd)
 
 echo "Deploying backends..."
 export BACKEND_NAME=apigee-legacy-risk
-cd $HOME/backends/risk-legacy
+cd $CUR_DIR/backends/risk-legacy
 source ./deploy.sh
 export LEGACY_URL=$(gcloud run services describe $BACKEND_NAME --platform managed --region $REGION --format 'value(status.url)')
 
 
 export BACKEND_NAME=apigee-new-risk
-cd $HOME/backends/risk-new
+cd $CUR_DIR/backends/risk-new
 source ./deploy.sh
 export NEW_URL=$(gcloud run services describe $BACKEND_NAME --platform managed --region $REGION --format 'value(status.url)')
 
-cd $HOME
+cd $CUR_DIR
 
 
 echo "Installing apigeecli"
