@@ -49,7 +49,7 @@ resource "google_project_iam_member" "business_unit_1_api_admin" {
   condition {
     title       = "bu1 custom"
     description = "Conditions for business unit to edit bu1- prefixed proxies, shared flows and test"
-    expression  = "resource.name.startsWith('organizations/${var.project_id}/apis/bu1-') ||\nresource.name.startsWith('organizations/apigeex-exp/sharedflows/bu1-') ||\nresource.name.startsWith('organizations/apigeex-exp/apiproducts/bu1-') ||\n(resource.type == 'apigee.googleapis.com/Developer') ||\n(resource.type == 'apigee.googleapis.com/DeveloperApp' && resource.name.extract('/apps/{name}').startsWith('bu1-')) ||\nresource.type == 'cloudresourcemanager.googleapis.com/Project'"
+    expression  = "resource.name.startsWith('organizations/${var.project_id}/apis/bu1-') ||\nresource.name.startsWith('organizations/${var.project_id}/sharedflows/bu1-') ||\nresource.name.startsWith('organizations/${var.project_id}/apiproducts/bu1-') ||\n(resource.type == 'apigee.googleapis.com/Developer') ||\n(resource.type == 'apigee.googleapis.com/DeveloperApp' && resource.name.extract('/apps/{name}').startsWith('bu1-')) ||\nresource.type == 'cloudresourcemanager.googleapis.com/Project'"
   }
 }
 
@@ -61,7 +61,7 @@ resource "google_project_iam_member" "business_unit_1_developer_admin" {
   condition {
     title       = "bu1 custom"
     description = "Conditions for business unit to edit bu1- prefixed proxies, shared flows and test"
-    expression  = "resource.name.startsWith('organizations/${var.project_id}/apis/bu1-') ||\nresource.name.startsWith('organizations/apigeex-exp/sharedflows/bu1-') ||\nresource.name.startsWith('organizations/apigeex-exp/apiproducts/bu1-') ||\n(resource.type == 'apigee.googleapis.com/Developer') ||\n(resource.type == 'apigee.googleapis.com/DeveloperApp' && resource.name.extract('/apps/{name}').startsWith('bu1-')) ||\nresource.type == 'cloudresourcemanager.googleapis.com/Project'"
+    expression  = "resource.name.startsWith('organizations/${var.project_id}/apis/bu1-') ||\nresource.name.startsWith('organizations/${var.project_id}/sharedflows/bu1-') ||\nresource.name.startsWith('organizations/${var.project_id}/apiproducts/bu1-') ||\n(resource.type == 'apigee.googleapis.com/Developer') ||\n(resource.type == 'apigee.googleapis.com/DeveloperApp' && resource.name.extract('/apps/{name}').startsWith('bu1-')) ||\nresource.type == 'cloudresourcemanager.googleapis.com/Project'"
   }
 }
 
@@ -148,7 +148,7 @@ resource "google_apigee_environment_iam_member" "bu1-dev-env" {
 #   condition {
 #     title       = "business-unit-2"
 #     description = "Conditions for business unit to edit bu2- prefixed proxies, shared flows and test"
-#     expression  = "resource.name.startsWith('organizations/apigeex-exp/apis/bu2-') ||\nresource.name.startsWith('organizations/apigeex-exp/sharedflows/bu2-') ||\nresource.name.startsWith('organizations/apigeex-exp/apiproducts/bu2-') ||\n(resource.type == 'apigee.googleapis.com/Developer') ||\n(resource.type == 'apigee.googleapis.com/DeveloperApp' && resource.name.extract('/apps/{name}').startsWith('bu2-')) ||\nresource.type == 'cloudresourcemanager.googleapis.com/Project'"
+#     expression  = "resource.name.startsWith('organizations/${var.project_id}/apis/bu2-') ||\nresource.name.startsWith('organizations/${var.project_id}/sharedflows/bu2-') ||\nresource.name.startsWith('organizations/${var.project_id}/apiproducts/bu2-') ||\n(resource.type == 'apigee.googleapis.com/Developer') ||\n(resource.type == 'apigee.googleapis.com/DeveloperApp' && resource.name.extract('/apps/{name}').startsWith('bu2-')) ||\nresource.type == 'cloudresourcemanager.googleapis.com/Project'"
 #   }
 # }
 
@@ -160,7 +160,7 @@ resource "google_apigee_environment_iam_member" "bu1-dev-env" {
 #   condition {
 #     title       = "business-unit-2"
 #     description = "Conditions for business unit to edit bu2- prefixed proxies, shared flows and test"
-#     expression  = "resource.name.startsWith('organizations/apigeex-exp/apis/bu2-') ||\nresource.name.startsWith('organizations/apigeex-exp/sharedflows/bu2-') ||\nresource.name.startsWith('organizations/apigeex-exp/apiproducts/bu2-') ||\n(resource.type == 'apigee.googleapis.com/Developer') ||\n(resource.type == 'apigee.googleapis.com/DeveloperApp' && resource.name.extract('/apps/{name}').startsWith('bu2-')) ||\nresource.type == 'cloudresourcemanager.googleapis.com/Project'"
+#     expression  = "resource.name.startsWith('organizations/${var.project_id}/apis/bu2-') ||\nresource.name.startsWith('organizations/${var.project_id}/sharedflows/bu2-') ||\nresource.name.startsWith('organizations/${var.project_id}/apiproducts/bu2-') ||\n(resource.type == 'apigee.googleapis.com/Developer') ||\n(resource.type == 'apigee.googleapis.com/DeveloperApp' && resource.name.extract('/apps/{name}').startsWith('bu2-')) ||\nresource.type == 'cloudresourcemanager.googleapis.com/Project'"
 #   }
 # }
 
