@@ -1,0 +1,56 @@
+openapi: 3.0.2
+info:
+  title: Risks API
+  version: '1.1.0'
+  description: 'Given a set of user information, returns the risk score associated with it'
+servers:
+  - url: 'https://httpbin.org'
+paths:
+  /score:
+    get:
+      description: 'Given a username and CPF, returns the risk in percentage'
+      parameters:
+        - in: header
+          name: x-apikey
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+components:
+  schemas:
+    Request:
+      type: object
+      description: Risk Request. Requires a name and a CPF.
+      properties:
+        name:
+          type: string
+        cpf:
+          type: string
+    Response:
+      type: object
+      description: Risk response. Replays input and adds risk.
+      properties:
+        input:
+          type: object
+          properties:
+            name:
+              type: string
+            cpf:
+              type: string
+        risk:
+          type: integer
+        source:
+          type: string
+x-internal: false

@@ -1,0 +1,42 @@
+apiVersion: apigeeregistry/v1
+kind: API
+metadata:
+  name: grpc-sample
+  labels:
+    apihub-lifecycle: concept
+    apihub-style: apihub-grpc
+  annotations:
+    apihub-primary-contact: grpc-team@example.com
+    apihub-primary-contact-description: gRPC API Team
+data:
+  displayName: gRPC API Example
+  versions:
+  - metadata:
+      name: v1
+      annotations:
+        apihub-end-of-life-type: apihub-unknown
+    data:
+      displayName: v1
+      state: concept
+      specs:
+      - metadata:
+          name: provisioning-serviceproto
+        data:
+          filename: provisioning_service.proto
+          mimeType: application/x.protobuf
+          sourceURI: https://raw.githubusercontent.com/apigee/registry/main/google/cloud/apigeeregistry/v1/provisioning_service.proto
+  artifacts:
+  - kind: ReferenceList
+    metadata:
+      name: apihub-dependencies
+    data:
+      displayName: ""
+      description: Defines a list of dependencies
+      references: []
+  - kind: ReferenceList
+    metadata:
+      name: apihub-related
+    data:
+      displayName: ""
+      description: Defines a list of related resources
+      references: []

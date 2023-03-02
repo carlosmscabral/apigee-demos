@@ -1,0 +1,46 @@
+apiVersion: apigeeregistry/v1
+kind: API
+metadata:
+  name: openapi-sample
+  labels:
+    apihub-lifecycle: concept
+    apihub-style: apihub-openapi
+    apihub-target-users: public
+  annotations:
+    apihub-primary-contact: openapi-team@example.com
+    apihub-primary-contact-description: OpenAPI Team
+data:
+  displayName: OpenAPI Example 
+  description: Sample OpenAPI specificataion
+  versions:
+    - metadata:
+        name: v1
+        annotations:
+          apihub-end-of-life-type: apihub-unknown
+      data:
+        displayName: v1
+        state: concept
+        specs:
+          - metadata:
+              name: petstore.json
+              annotations:
+                apihub-comment: Initial version
+            data:
+              filename: petstore.json
+              mimeType: application/x.openapi+gzip
+              sourceURI: https://petstore.swagger.io/v2/swagger.json
+  artifacts:
+    - kind: ReferenceList
+      metadata:
+        name: apihub-dependencies
+      data:
+        displayName: ""
+        description: Defines a list of dependencies
+        references: []
+    - kind: ReferenceList
+      metadata:
+        name: apihub-related
+      data:
+        displayName: ""
+        description: Defines a list of related resources
+        references: []

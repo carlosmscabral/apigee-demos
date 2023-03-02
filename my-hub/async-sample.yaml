@@ -1,0 +1,42 @@
+apiVersion: apigeeregistry/v1
+kind: API
+metadata:
+  name: asyncapi-sample
+  labels:
+    apihub-lifecycle: concept
+    apihub-style: apihub-asyncapi
+  annotations:
+    apihub-primary-contact: asyncapi-team@example.com
+    apihub-primary-contact-description: Async API Team
+data:
+  displayName: Async API Example
+  versions:
+    - metadata:
+        name: v1
+        annotations:
+          apihub-end-of-life-type: apihub-unknown
+      data:
+        displayName: v1
+        state: concept
+        specs:
+          - metadata:
+              name: streetlights-mqttyml
+            data:
+              filename: streetlights-mqtt.yml
+              mimeType: application/x.asyncapi
+              sourceURI: https://raw.githubusercontent.com/asyncapi/spec/65d58696f8c3ab6471aa48b12d878221b8d8109e/examples/streetlights-mqtt.yml
+  artifacts:
+    - kind: ReferenceList
+      metadata:
+        name: apihub-dependencies
+      data:
+        displayName: ""
+        description: Defines a list of dependencies
+        references: []
+    - kind: ReferenceList
+      metadata:
+        name: apihub-related
+      data:
+        displayName: ""
+        description: Defines a list of related resources
+        references: []
