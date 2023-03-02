@@ -13,7 +13,7 @@ app.post('/score', (req, res) => {
     const risk = Math.floor(Math.random() * 100)
 
     setTimeout(() => {
-        res.send({input, risk, source: "legacy-service"})
+        res.send({input: {name: input.name, cpf: input.cpf}, risk, source: "legacy-service"})
     }, delay)
 })
 

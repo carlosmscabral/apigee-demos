@@ -10,7 +10,7 @@ app.post('/score', (req, res) => {
     const input = req.body
     const risk = Math.floor(Math.random() * 100)
 
-    res.send({input, risk, source: "new-service"})
+    res.send({input: {name: input.name, cpf: input.cpf}, risk, source: "new-service"})
 
 })
 
