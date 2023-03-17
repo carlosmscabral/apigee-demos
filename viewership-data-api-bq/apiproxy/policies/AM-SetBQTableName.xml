@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-SetBQTableName">
+    <DisplayName>AM-SetBQTableName</DisplayName>
+    <Properties/>
+    <AssignVariable>
+        <Name>bq.table</Name>
+        <Value>BQ_DATASET</Value>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

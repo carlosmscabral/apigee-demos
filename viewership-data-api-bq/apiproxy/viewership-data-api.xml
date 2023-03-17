@@ -1,0 +1,22 @@
+<APIProxy revision="3" name="viewership-data-api">
+    <DisplayName></DisplayName>
+    <Description></Description>
+    <CreatedAt>1679070262713</CreatedAt>
+    <LastModifiedAt>1679070262713</LastModifiedAt>
+    <BasePaths>/v1/views</BasePaths>
+    <Policies>
+        <Policy>ConvertResponse</Policy>
+        <Policy>SetQuery</Policy>
+        <Policy>AM-SetBQTableName</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources>
+        <Resource>jsc://ConvertResponse.js</Resource>
+        <Resource>jsc://SetQuery.js</Resource>
+    </Resources>
+    <TargetEndpoints>
+        <TargetEndpoint>default</TargetEndpoint>
+    </TargetEndpoints>
+</APIProxy>
