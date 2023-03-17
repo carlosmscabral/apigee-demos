@@ -59,8 +59,8 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
     gsed -i -e "s+BQ_DATASET+$BQ_DATASET+g" apiproxy/policies/AM-SetBQTableName.xml
 fi
 
-REV=$(apigeecli apis create bundle -f apiproxy -n viewership-data-api2  --org "$PROJECT" --token "$TOKEN" --disable-check | jq ."revision" -r)
-apigeecli apis deploy --wait --name viewership-data-api2 --ovr --rev "$REV" --org "$PROJECT" --env "$APIGEE_ENV" --token "$TOKEN" --sa ${SA_NAME}@"${PROJECT}".iam.gserviceaccount.com
+REV=$(apigeecli apis create bundle -f apiproxy -n viewership-data-api  --org "$PROJECT" --token "$TOKEN" --disable-check | jq ."revision" -r)
+apigeecli apis deploy --wait --name viewership-data-api --ovr --rev "$REV" --org "$PROJECT" --env "$APIGEE_ENV" --token "$TOKEN" --sa ${SA_NAME}@"${PROJECT}".iam.gserviceaccount.com
 
 
 echo " "
