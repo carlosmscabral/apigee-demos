@@ -42,11 +42,11 @@ echo "Creating API Proxy Service Account and granting BQ roles to it"
 gcloud iam service-accounts create $SA_NAME
 gcloud projects add-iam-policy-binding "$PROJECT" \
     --member="serviceAccount:${SA_NAME}@${PROJECT}.iam.gserviceaccount.com" \
-    --role="roles/bigquery.dataViewer"
+    --role="roles/bigquery.dataViewer" --condition=None
 
 gcloud projects add-iam-policy-binding "$PROJECT" \
     --member="serviceAccount:${SA_NAME}@${PROJECT}.iam.gserviceaccount.com" \
-    --role="roles/bigquery.jobUser"
+    --role="roles/bigquery.jobUser" --condition=None
 
 
 echo "Creating and Deploying Apigee proxy proxy..."
@@ -59,7 +59,7 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
     gsed -i -e "s+BQ_DATASET+$BQ_DATASET+g" apiproxy/policies/AM-SetBQTableName.xml
 fi
 
-REV=$(apigeecli apis create bundle -f apiproxy viewership-data-api2 -n  --org "$PROJECT" --token "$TOKEN" --disable-check | jq ."revision" -r)
+REV=$(apigeecli apis create bundle -f apiproxy -n viewership-data-api2  --org "$PROJECT" --token "$TOKEN" --disable-check | jq ."revision" -r)
 apigeecli apis deploy --wait --name viewership-data-api2 --ovr --rev "$REV" --org "$PROJECT" --env "$APIGEE_ENV" --token "$TOKEN" --sa ${SA_NAME}@"${PROJECT}".iam.gserviceaccount.com
 
 
