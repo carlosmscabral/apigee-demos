@@ -29,7 +29,6 @@ for(var queryParam in request.queryParams){
 }
 
 var query = "";
-var table = "cabral-apigee.cabral_dataset.viewership";
 
 if (table)
   query = "SELECT * FROM " + table + " %filter% %orderBy% %pageSize% %pageToken%";
