@@ -24,24 +24,19 @@ if [ -z "$APIGEE_ENV" ]; then
         exit
 fi
 
-if [ -z "$APIGEE_HOST" ]; then
-        echo "No APIGEE_HOST variable set"
-        exit
-fi
-
 TOKEN=$(gcloud auth print-access-token)
-SA_NAME=apigee-proxy-service-account
+SA_NAME=bq-api-service
 
 echo "Installing apigeecli"
 curl -s https://raw.githubusercontent.com/apigee/apigeecli/master/downloadLatest.sh | bash
 export PATH=$PATH:$HOME/.apigeecli/bin
 
-echo "Undeploying sample-cloud-logging proxy"
-REV=$(apigeecli envs deployments get --env "$APIGEE_ENV" --org "$PROJECT" --token "$TOKEN" --disable-check | jq .'deployments[]| select(.apiProxy=="sample-cloud-logging").revision' -r)
-apigeecli apis undeploy --name sample-cloud-logging --env "$APIGEE_ENV" --rev "$REV" --org "$PROJECT" --token "$TOKEN"
+echo "Undeploying viewership-data-api proxy"
+REV=$(apigeecli envs deployments get --env "$APIGEE_ENV" --org "$PROJECT" --token "$TOKEN" --disable-check | jq .'deployments[]| select(.apiProxy=="viewership-data-api").revision' -r)
+apigeecli apis undeploy --name viewership-data-api --env "$APIGEE_ENV" --rev "$REV" --org "$PROJECT" --token "$TOKEN"
 
-echo "Deleting proxy sample-cloud-logging proxy"
-apigeecli apis delete --name sample-cloud-logging --org "$PROJECT" --token "$TOKEN"
+echo "Deleting proxy viewership-data-api proxy"
+apigeecli apis delete --name viewership-data-api --org "$PROJECT" --token "$TOKEN"
 
 echo "Deleting service account"
 gcloud iam service-accounts delete ${SA_NAME}@"${PROJECT}".iam.gserviceaccount.com
