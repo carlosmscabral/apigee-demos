@@ -29,6 +29,7 @@ fi
 
 
 TOKEN=$(gcloud auth print-access-token)
+SA_NAME=api-hub-mock-renderer
 
 echo "Enabling APIs..."
 gcloud services enable run.googleapis.com  --project="$PROJECT"
@@ -39,12 +40,18 @@ echo "Fetching Dockerfiles..."
 git clone "https://github.com/apigee/registry-experimental"
 cd registry-experimental/containers/registry-spec-renderer
 
+cho "Creating Service Account for Cloud Run services and granting registry access to it"
+gcloud iam service-accounts create $SA_NAME
+gcloud projects add-iam-policy-binding "$PROJECT" \
+    --member="serviceAccount:${SA_NAME}@${PROJECT}.iam.gserviceaccount.com" \
+    --role="roles/apigeeregistry.viewer" --condition=None
+
 echo "Building the spec renderer image..."
 gcloud builds submit --tag "gcr.io/$PROJECT/registry-spec-renderer" --project "$PROJECT"
 
 echo "Deploying spec renderer to Cloud Run"
 gcloud run deploy registry-spec-renderer --image="gcr.io/${PROJECT}/registry-spec-renderer" \
---platform=managed --project "${PROJECT}" --allow-unauthenticated
+--platform=managed --project "${PROJECT}" --allow-unauthenticated --service-account=${SA_NAME}@${PROJECT}.iam.gserviceaccount.com
 
 export RENDERER_URL=$(gcloud run services describe registry-spec-renderer --platform managed --region $REGION --format 'value(status.url)')
 
@@ -54,7 +61,7 @@ gcloud builds submit --tag "gcr.io/$PROJECT/registry-openapi-mock" --project "$P
 
 echo "Deploying openapi mock to Cloud Run"
 gcloud run deploy registry-openapi-mock --image="gcr.io/${PROJECT}/registry-openapi-mock" \
---platform=managed --project "${PROJECT}" --allow-unauthenticated
+--platform=managed --project "${PROJECT}" --allow-unauthenticated --service-account=${SA_NAME}@${PROJECT}.iam.gserviceaccount.com
 
 export OPENAPI_MOCK_ENDPOINT=$(gcloud run services describe registry-openapi-mock --platform managed --region $REGION --format 'value(status.url)')
 
@@ -64,13 +71,16 @@ gcloud builds submit --tag "gcr.io/$PROJECT/registry-graphql-mock" --project "$P
 
 echo "Deploying openapi mock to Cloud Run"
 gcloud run deploy registry-graphql-mock --image="gcr.io/${PROJECT}/registry-graphql-mock" \
---platform=managed --project "${PROJECT}" --allow-unauthenticated
+--platform=managed --project "${PROJECT}" --allow-unauthenticated --service-account=${SA_NAME}@${PROJECT}.iam.gserviceaccount.com
 
 export GRAPHQL_MOCK_ENDPOINT=$(gcloud run services describe registry-graphql-mock --platform managed --region $REGION --format 'value(status.url)')
 
 echo "Updating the environment variables for the renderer service"
 gcloud run services update registry-spec-renderer --update-env-vars OPENAPI_MOCK_ENDPOINT=$OPENAPI_MOCK_ENDPOINT,GRAPHQL_MOCK_ENDPOINT=$GRAPHQL_MOCK_ENDPOINT
 
+echo "Installing registry tool"
+curl -L https://raw.githubusercontent.com/apigee/registry/main/downloadLatest.sh | sh -
+export PATH=$PATH:$HOME/.registry/bin
 
 echo "Configuring registry tool (assumes registry is installed)"
 registry config configurations create config-$PROJECT \
