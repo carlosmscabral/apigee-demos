@@ -31,6 +31,11 @@ fi
 TOKEN=$(gcloud auth print-access-token)
 SA_NAME=api-hub-mock-renderer
 
+echo "Installing registry tool"
+curl -L https://raw.githubusercontent.com/apigee/registry/main/downloadLatest.sh | sh -
+export PATH=$PATH:$HOME/.registry/bin
+
+
 echo "Configuring registry tool (assumes registry is installed)"
 registry config configurations create config-$PROJECT \
     --registry.address=apigeeregistry.googleapis.com:443 \
