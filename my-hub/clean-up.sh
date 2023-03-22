@@ -29,7 +29,7 @@ fi
 
 
 TOKEN=$(gcloud auth print-access-token)
-
+SA_NAME=api-hub-mock-renderer
 
 echo "Configuring registry tool (assumes registry is installed)"
 registry config configurations create config-$PROJECT \
@@ -53,3 +53,6 @@ for i in registry-spec-renderer registry-openapi-mock registry-graphql-mock
 do
     gcloud run services delete $i --platform=managed
 done
+
+echo "Deleting service account"
+gcloud iam service-accounts delete ${SA_NAME}@"${PROJECT}".iam.gserviceaccount.com
