@@ -40,7 +40,7 @@ echo "Fetching Dockerfiles..."
 git clone "https://github.com/apigee/registry-experimental"
 cd registry-experimental/containers/registry-spec-renderer
 
-cho "Creating Service Account for Cloud Run services and granting registry access to it"
+echo "Creating Service Account for Cloud Run services and granting registry access to it"
 gcloud iam service-accounts create $SA_NAME
 gcloud projects add-iam-policy-binding "$PROJECT" \
     --member="serviceAccount:${SA_NAME}@${PROJECT}.iam.gserviceaccount.com" \
