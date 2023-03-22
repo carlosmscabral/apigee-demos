@@ -1,0 +1,81 @@
+openapi: 3.0.2
+info:
+  title: Risks API
+  version: '1.1.1'
+  description: 'Given a set of user information, returns the risk score associated with it'
+  contact:
+    name: 'Fulano'
+    email: 'fulano@google.com'
+servers:
+  - url: 'https://httpbin.org/v1/minhaapi'
+paths:
+  /score:
+    post:
+      description: 'Given a username and CPF, returns the risk in percentage'
+      parameters:
+        - in: header
+          name: x-apikey
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+  /status:
+    get:
+      description: 'Fixed status endpoint'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Status'
+components:
+  schemas:
+    Request:
+      type: object
+      description: Risk Request. Requires a name and a CPF.
+      properties:
+        name:
+          type: string
+        cpf:
+          type: string
+    Response:
+      type: object
+      description: Risk response. Replays input and adds risk.
+      properties:
+        input:
+          type: object
+          properties:
+            name:
+              type: string
+            cpf:
+              type: string
+        risk:
+          type: integer
+        source:
+          type: string
+      example:
+        input:
+          name: user
+          cpf: "123456"
+        risk: 45
+        source: new-service
+
+    Status:
+      type: string
+      description: Status
+      example: Ok
+
+x-internal: false

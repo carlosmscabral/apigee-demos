@@ -13,8 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-export PROJECT="cabral-apigee"
-export REGION="southamerica-east1"
+export PROJECT="<HUB_PROJECT_ID>"
+export REGION="<REGION_FOR_CLOUD_RUN_SVCS>"
 
 gcloud auth login
 gcloud config set project $PROJECT
