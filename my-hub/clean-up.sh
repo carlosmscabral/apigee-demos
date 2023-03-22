@@ -53,5 +53,3 @@ for i in registry-spec-renderer registry-openapi-mock registry-graphql-mock
 do
     gcloud run services delete $i --platform=managed
 done
-
-rm risksapi.yaml.bak

@@ -93,9 +93,16 @@ registry config set token-source 'gcloud auth print-access-token'
 
 echo "Updating API definitions with new URLs for deployment"
 cd ../../../..
-cp risksapi.yaml.bkp risksapi.yaml
-sed -i'.bak' -e "s/GCP_PROJECT/$PROJECT/g" risksapi.yaml 
-sed -i'.bak' -e "s+RENDERER_URL+$RENDERER_URL+g" risksapi.yaml
+if [[ "$OSTYPE" =~ ^linux ]]; then
+    sed -i -e "s/GCP_PROJECT/$PROJECT/g" risksapi.yaml 
+    sed -i -e "s+RENDERER_URL+$RENDERER_URL+g" risksapi.yaml
+fi
+
+if [[ "$OSTYPE" =~ ^darwin ]]; then
+    gsed -i -e "s/GCP_PROJECT/$PROJECT/g" risksapi.yaml 
+    gsed -i -e "s+RENDERER_URL+$RENDERER_URL+g" risksapi.yaml
+fi
+
 
 registry apply -f . \
 --parent=projects/$PROJECT/locations/global
