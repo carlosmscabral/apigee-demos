@@ -9,29 +9,11 @@
 
 ## <a name="intro"></a>Intro
 
-This repository contains a collection of sample API proxies that you can deploy and run on Apigee X or [hybrid](https://cloud.google.com/apigee/docs/hybrid/v1.8/what-is-hybrid).
-
-The samples provide a jump-start for developers who wish to design and create Apigee API proxies.
+This repository contains a set of demos to be delivered on top of Apigee X.
 
 ### <a name="demos"></a>Demos
-- [deploy-apigee-proxy](deploy-apigee-proxy) -
-  Deploy Apigee proxy using Apigee Maven plugin and Cloud Build
-- [deploy-apigee-sharedflow](deploy-apigee-sharedflow) -
-  Deploy Apigee sharedflow using Apigee Maven plugin and Cloud Build
-- [deploy-apigee-config](deploy-apigee-config) -
-  Deploy Apigee configurations using Apigee Maven plugin and Cloud Build
-- [authorize-idp-access-tokens](authorize-idp-access-tokens) - 
-  Authorize JWT access tokens issued by an Identity Provider  
-- [oauth-client-credentials](oauth-client-credentials) -
-  A sample proxy which uses the OAuth 2.0 client credentials grant type flow
-- [cloud-logging](cloud-logging) -
-  A sample proxy that logs custom messages to Google Cloud Logging
-- [basic-quota](basic-quota) -
-  A sample which shows how to implement a basic API consumption quota
-- [cloud-run](cloud-run) -
-  A sample proxy to invoke Cloud Run Service from Apigee
-- [integrated-developer-portal](integrated-developer-portal) -
-  This sample demonstrates how to create an Apigee Integrated portal and shows how to expose your API products to its catalog
+- [my-hub](my-hub) -
+  Sample API Hub demo that creates renderers, mock servers and sample APIs in API Hub.
 
 
 
