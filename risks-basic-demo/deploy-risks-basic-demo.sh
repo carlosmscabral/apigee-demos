@@ -37,6 +37,10 @@ fi
 TOKEN=$(gcloud auth print-access-token)
 CUR_DIR=$(pwd)
 
+echo "Enabling APIs..."
+gcloud services enable run.googleapis.com  --project="$PROJECT"
+gcloud services enable cloudbuild.googleapis.com  --project="$PROJECT"
+
 echo "Deploying backends..."
 export BACKEND_NAME=apigee-legacy-risk
 cd $CUR_DIR/backends/risk-legacy
